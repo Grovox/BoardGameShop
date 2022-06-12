@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta charset="UTF-8">
+    <title> Corparation</title>
+    <link rel="shortcut icon" th:href="@{../static/images/Landing.png}" type="image/x-icon">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+    <link href="https://getbootstrap.com/docs/4.0/examples/signin/signin.css" rel="stylesheet" crossorigin="anonymous">
+    <link media="all" rel="stylesheet" th:href="@{../static/css/main.css}" type="text/css"/>
+
+</head>
+<body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"
+        integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"
+        integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13"
+        crossorigin="anonymous"></script>
+<header>
+    <nav class="navbar navbar-light bg-light fixed-top">
+        <div class="container-fluid">
+            <div class="navbar-brand">G &amp; A</div>
+            <ul class="nav nav-tabs">
+                <li class="nav-item">
+                    <a class="nav-link text-dark" aria-current="page" href="/">Главная</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-dark" href="#">Открытая статистика</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-dark" href="#">О нас</a>
+                </li>
+            </ul>
+            <div>
+                <a class="btn btn-light" href="/registration">Регистрация</a>
+            </div>
+        </div>
+    </nav>
+</header>
+<main>
+    <div class="container">
+        <div class="row">
+            <div class="col-4"></div>
+            <div class="col-4 mt-5">
+                <form class="form-signin" th:action="@{/login}" method="post" action="/login">
+                    <h2 class="form-signin-heading">Войдите в аккаунт</h2>
+                    <p>
+                    <div th:if="${param.error}" class="alert alert-error">
+                        Неправильные имя или пароль.
+                    </div>
+
+                    <div th:if="${param.logout}" class="alert alert-success">
+                        You have been logged out.
+                    </div>
+                        <label for="username" class="sr-only">Username</label>
+                        <input type="text" id="username" name="username" class="form-control" placeholder="Email" required="" autofocus="">
+                    </p>
+                    <p>
+                        <label for="password" class="sr-only">Password</label>
+                        <input type="password" id="password" name="password" class="form-control" placeholder="Password" required="">
+                    </p>
+                    <input name="_csrf" type="hidden" value="2c416ab9-d18a-4a22-995d-ea3480e34e5d">
+                    <button class="btn btn-lg btn-primary btn-block" type="submit">Войти</button>
+                </form>
+            </div>
+            <div class="col-4"></div>
+        </div>
+    </div>
+</main>
+<footer class="">
+    <nav class="navbar navbar-light bg-light">
+        <ul class="nav">
+            <li class="nav-item">
+                <a class="nav-link text-secondary" href="mailto:Athander@yandex.ru">Почта: Athander@yandex.ru</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-secondary" href="#">Github</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-secondary" href="tel:89997201268">телефон: 89997201268</a>
+            </li>
+        </ul>
+    </nav>
+</footer>
+</body>
+</html>
+
+
