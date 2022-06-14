@@ -10,196 +10,151 @@
     <link media="all" rel="stylesheet" th:href="@{../static/css/main.css}" type="text/css"/>
 </head>
 <body>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
-            crossorigin="anonymous"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+        crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"
         integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB"
         crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"
         integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13"
         crossorigin="anonymous"></script>
-<header class="p-3 bg-dark text-white">
-    <div class="container">
-        <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-            <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
-                <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap"><use xlink:href="#bootstrap"></use></svg>
-            </a>
+<div class="wrapper">
+    <header class="p-2 bg-dark text-white">
+        <div class="container">
+            <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+                <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
+                    <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap">
+                        <use xlink:href="#bootstrap"></use>
+                    </svg>
+                </a>
 
-            <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-                <li><a href="#" class="nav-link px-2 text-secondary">Home</a></li>
-                <li><a href="#" class="nav-link px-2 text-white">Features</a></li>
-                <li><a href="#" class="nav-link px-2 text-white">Pricing</a></li>
-                <li><a href="#" class="nav-link px-2 text-white">FAQs</a></li>
-                <li><a href="#" class="nav-link px-2 text-white">About</a></li>
-            </ul>
+                <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+                    <li><a href="/" class="nav-link px-2 text-white">Главная</a></li>
+                    <li><a href="/ShippingPayment" class="nav-link px-2 text-white">Доставка и оплата</a></li>
+                    <li><a href="/Guarantee" class="nav-link px-2 text-white">Гарантия</a></li>
+                    <li><a href="/AboutUs" class="nav-link px-2 text-white">О нас</a></li>
+                </ul>
 
-            <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
-                <input type="search" class="form-control form-control-dark" placeholder="Search..." aria-label="Search">
-            </form>
-
-            <div class="text-end">
-                <button type="button" class="btn btn-outline-light me-2">Login</button>
-                <button type="button" class="btn btn-warning">Sign-up</button>
+                <div class="text-end">
+                    <a href="/login" class="btn btn-outline-light me-2">Login</a>
+                    <a href="/registration" class="btn btn-warning  me-4">Sign-up</a>
+                    <a href="/basket" class="btn btn-outline-light text-bucket me-2">Корзина</a>
+                </div>
             </div>
         </div>
-    </div>
-</header>
-<main>
-    <div class="container">
-        <div class="row">
-            <div class="col-4"></div>
-            <div class="col-4 mt-5">
-                <form action="#" id="FormReg" th:action="@{/registration}" th:object="${user}" method="post"
-                      class="row g-3 needs-validation"
-                      novalidate>
-                    <h2 class="text-center">Регистрация</h2>
-                    <div class="mb-1">
-                        <input type="email" th:field="*{mail}" class="form-control"
-                               aria-describedby="emailHelp" placeholder="Введите email" required>
-                        <div class="valid-feedback">
-                            OK!
+    </header>
+    <main>
+        <div class="container">
+            <div class="row">
+                <div class="col-3 mt-5">
+                    <form action="#" th:action="@{/registration}"  method="post"
+                          class="row g-3 needs-validation"
+                          novalidate>
+                        <h2 class="text-center all-text pb-3">Регистрация</h2>
+                        <div th:if="${param.errorMail}" class="alert alert-error valid">
+                            Аккаунт с такой почтой уже существует.
                         </div>
-                        <div class="invalid-feedback">
-                            Пожалуйста, введите email.
+                        <div th:if="${param.errorPassword}" class="alert alert-error valid">
+                            Введите пароль от 8 до 32 символов.
                         </div>
-                    </div>
-                    <div class="mb-1">
-                        <input type="password" th:field="*{password}" class="form-control" placeholder="Введите пароль"
-                               required>
-                        <div class="valid-feedback">
-                            OK!
+                        <div th:if="${param.errorPasswordConfirm}" class="alert alert-error valid">
+                            Вы неправильно повторили пароль.
                         </div>
-                        <div class="invalid-feedback">
-                            Пожалуйста, введите пароль.
+                        <div class="mb-1">
+                            <input type="email" th:field="*{mail}" class="form-control input-style"
+                                   aria-describedby="emailHelp" placeholder="Введите email" required>
                         </div>
-                    </div>
-                    <div class="mb-1">
-                        <input type="password" th:field="*{confirmPassword}" class="form-control"
-                               placeholder="Повторите пароль"
-                               required>
-                        <div class="valid-feedback">
-                            OK!
+                        <div class="mb-1">
+                            <input type="password" th:field="*{password}" class="form-control input-style"
+                                   placeholder="Введите пароль"
+                                   required>
                         </div>
-                        <div class="invalid-feedback">
-                            Пожалуйста, введите пароль.
+                        <div class="mb-1">
+                            <input type="password" th:field="*{confirmPassword}" class="form-control input-style"
+                                   placeholder="Повторите пароль"
+                                   required>
                         </div>
-                    </div>
-                    <div class="mb-1">
-                        <input type="text" th:field="*{surname}" class="form-control" placeholder="Фамилия"
-                               required>
-                        <div class="valid-feedback">
-                            OK!
+                        <div class="mb-1">
+                            <input type="text" th:field="*{surname}" class="form-control input-style"
+                                   placeholder="Фамилия"
+                                   required>
                         </div>
-                        <div class="invalid-feedback">
-                            Пожалуйста, введите фамилию.
+                        <div class="mb-1">
+                            <input type="text" th:field="*{name}" class="form-control input-style" placeholder="Имя"
+                                   required>
                         </div>
-                    </div>
-                    <div class="mb-1">
-                        <input type="text" th:field="*{username}" class="form-control" placeholder="Имя"
-                               required>
-                        <div class="valid-feedback">
-                            OK!
+                        <div class="mb-1">
+                            <input type="text" th:field="*{patronymic}" class="form-control input-style"
+                                   placeholder="Отчество"
+                                   required>
                         </div>
-                        <div class="invalid-feedback">
-                            Пожалуйста, введите имя.
+                        <div class="mb-1">
+                            <input type="tel" th:field="*{contact_number}" class="form-control input-style"
+                                   placeholder="Номер телефона"
+                                   required>
                         </div>
-                    </div>
-                    <div class="mb-1">
-                        <input type="text" th:field="*{patronymic}" class="form-control" placeholder="Отчество"
-                               required>
-                        <div class="valid-feedback">
-                            OK!
+                        <div class="mb-1">
+                            <input type="tel" th:field="*{region}" class="form-control input-style"
+                                   placeholder="Область"
+                                   required>
                         </div>
-                        <div class="invalid-feedback">
-                            Пожалуйста, введите отчество.
+                        <div class="mb-1">
+                            <input type="tel" th:field="*{city}" class="form-control input-style" placeholder="Город"
+                                   required>
                         </div>
-                    </div>
-                    <div class="mb-1">
-                        <input type="tel" th:field="*{contact_number}" class="form-control" placeholder="Номер телефона"
-                               required>
-                        <div class="valid-feedback">
-                            OK!
+                        <div class="mb-1">
+                            <input type="tel" th:field="*{address}" class="form-control input-style" placeholder="Адрес"
+                                   required>
                         </div>
-                        <div class="invalid-feedback">
-                            Пожалуйста, введите номер телефона.
+                        <div class="col-12">
+                            <!--th:attr="onclick=|plusQty()|"-->
+                            <button type="submit" class="btn bth-style">Зарегистрироватся
+                            </button>
                         </div>
-                    </div>
-                    <div class="mb-1">
-                        <input type="tel" th:field="*{region}" class="form-control" placeholder="Область"
-                               required>
-                        <div class="valid-feedback">
-                            OK!
-                        </div>
-                        <div class="invalid-feedback">
-                            Пожалуйста, введите Область.
-                        </div>
-                    </div>
-                    <div class="mb-1">
-                        <input type="tel" th:field="*{city}" class="form-control" placeholder="Город"
-                               required>
-                        <div class="valid-feedback">
-                            OK!
-                        </div>
-                        <div class="invalid-feedback">
-                            Пожалуйста, введите Город.
-                        </div>
-                    </div>
-                    <div class="mb-1">
-                        <input type="tel" th:field="*{address}" class="form-control" placeholder="Адрес"
-                               required>
-                        <div class="valid-feedback">
-                            OK!
-                        </div>
-                        <div class="invalid-feedback">
-                            Пожалуйста, введите Адрес.
-                        </div>
-                    </div>
-                    <div class="col-12">
-                        <!--th:attr="onclick=|plusQty()|"-->
-                        <button type="submit" class="btn btn-primary">Отправить заявку на регистрацию
-                        </button>
-                    </div>
-                </form>
+                    </form>
+                </div>
+                <div class="col-8"></div>
             </div>
-            <div class="col-4"></div>
         </div>
-    </div>
-    <script>
-        (function () {
-            'use strict'
-            // Получите все формы, к которым мы хотим применить пользовательские стили проверки Bootstrap
-            var forms = document.querySelectorAll('.needs-validation')
+    </main>
+    <footer>
+        <div class="container">
+            <nav class="navbar">
+                <ul class="nav">
+                    <li class="nav-item ps-5">
+                        <a class="nav-link text-white-50" href="mailto:Grovox@bk.ru">Grovox@bk.ru</a>
+                    </li>
+                    <li class="nav-item ps-5">
+                        <a class="nav-link text-white-50" href="https://github.com/Grovox/BoardGameShop.git">Github</a>
+                    </li>
+                    <li class="nav-item ps-5">
+                        <a class="nav-link text-white-50" href="tel:+79997006867">+79997006867</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </footer>
+</div>
+<script>
+    (function () {
+        'use strict'
+        // Получите все формы, к которым мы хотим применить пользовательские стили проверки Bootstrap
+        var forms = document.querySelectorAll('.needs-validation')
 
-            // Зацикливайтесь на них и предотвращайте отправку
-            Array.prototype.slice.call(forms)
-                .forEach(function (form) {
-                    form.addEventListener('submit', function (event) {
-                        if (!form.checkValidity()) {
-                            event.preventDefault()
-                            event.stopPropagation()
-                        }
-                        form.classList.add('was-validated')
-                    }, false)
-                })
-        })()
-    </script>
-</main>
-<footer class="fixed-bottom">
-    <nav class="navbar navbar-dark bg-dark">
-        <ul class="nav">
-            <li class="nav-item">
-                <a class="nav-link text-secondary" href="mailto:Athander@yandex.ru">Почта: Athander@yandex.ru</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link text-secondary" href="#">Github</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link text-secondary" href="tel:89997201268">телефон: 89997201268</a>
-            </li>
-        </ul>
-    </nav>
-</footer>
+        // Зацикливайтесь на них и предотвращайте отправку
+        Array.prototype.slice.call(forms)
+            .forEach(function (form) {
+                form.addEventListener('submit', function (event) {
+                    if (!form.checkValidity()) {
+                        event.preventDefault()
+                        event.stopPropagation()
+                    }
+                    form.classList.add('was-validated')
+                }, false)
+            })
+    })()
+</script>
 </body>
 </html>

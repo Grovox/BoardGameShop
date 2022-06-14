@@ -12,9 +12,10 @@ public class UserDetailsServiceImpl implements org.springframework.security.core
     private UserRepository repo;
 
     @Override
-    public UserDetails loadUserByUsername(String username)
+    public UserDetails loadUserByUsername(String mail)
             throws UsernameNotFoundException {
-        User user = repo.getUserByEmail(username);
+        mail = mail.toLowerCase();
+        User user = repo.getUserByMail(mail);
 
         if (user == null) {
             throw new UsernameNotFoundException("Could not find user");

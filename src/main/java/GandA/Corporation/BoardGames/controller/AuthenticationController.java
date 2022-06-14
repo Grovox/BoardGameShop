@@ -1,8 +1,8 @@
 package GandA.Corporation.BoardGames.controller;
 
 import GandA.Corporation.BoardGames.domain.User;
+import GandA.Corporation.BoardGames.service.SecurityService;
 import GandA.Corporation.BoardGames.service.UserService;
-import GandA.Corporation.BoardGames.validation.UserValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,8 +19,7 @@ public class AuthenticationController {
     private UserService userService;
 
     @Autowired
-    private UserValidator userValidator;
-
+    private SecurityService securityService;
 
     @GetMapping("/")
     public String viewHomePage(Model model) {
@@ -29,6 +28,9 @@ public class AuthenticationController {
 
     @GetMapping("/index")
     public String viewHomePageLogin(Model model) {
+
+        String name = userService.getAuntUser().getName();
+        model.addAttribute("name",name);
         return "index_login";
     }
 
@@ -41,17 +43,31 @@ public class AuthenticationController {
     }
 
     @RequestMapping(value = "/registration", method = RequestMethod.POST)
-    public String registration(@ModelAttribute("user") User user, BindingResult bindingResult, Model model) {
-        userValidator.validate(user, bindingResult);
-        if (bindingResult.hasErrors()) {
-            return "error_password";
+    public String registration(@ModelAttribute("user") User user, Model model) {
+        user.setMail(user.getMail().toLowerCase());
+
+        if (userService.findByEmail(user.getMail()) != null) {
+            return "/registration?errorMail=true";
         }
-        userService.save(user);
-        return "/registration";
+
+        if (user.getPassword().length() < 8 || user.getPassword().length() > 32) {
+            return "/registration?errorPassword=true";
+        }
+
+        if (!user.getConfirmPassword().equals(user.getPassword())) {
+            return "/registration?errorPasswordConfirm=true";
+        }
+
+        userService.newUserSave(user);
+
+        securityService.autoLogin(user.getMail(), user.getConfirmPassword());
+
+        return "redirect:/index";
     }
 
     @GetMapping("/login")
     public String get(Model model) {
         return "/login";
     }
+
 }

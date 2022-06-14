@@ -1,13 +1,17 @@
 package GandA.Corporation.BoardGames.service;
 
+import GandA.Corporation.BoardGames.domain.Role;
 import GandA.Corporation.BoardGames.domain.User;
+import GandA.Corporation.BoardGames.repo.RoleRepository;
 import GandA.Corporation.BoardGames.repo.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class UserService{
@@ -16,10 +20,20 @@ public class UserService{
     private UserRepository repo;
 
     @Autowired
+    private RoleRepository roleRepo;
+
+    @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    public void save(User user) {
+    public void savePassword(User user) {
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+        repo.save(user);
+    }
+
+    public void newUserSave(User user) {
+        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+        Role role = roleRepo.getOne(1L);
+        user.setRole(role);
         repo.save(user);
     }
 
@@ -27,12 +41,17 @@ public class UserService{
         repo.save(user);
     }
 
+
     public User getUserByEmail(String email){
-        return repo.getUserByEmail(email);
+        return repo.getUserByMail(email);
     }
 
     public User getAuntUser(){
         return getUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName());
+    }
+
+    public List<User> findByMailContaining(String mail){
+        return repo.findByMailContainingIgnoreCase(mail);
     }
 
     public List<User> listAll() {
@@ -47,4 +66,7 @@ public class UserService{
         repo.deleteById(id);
     }
 
+    public User findByEmail(String mail) {
+        return repo.findByMail(mail);
+    }
 }

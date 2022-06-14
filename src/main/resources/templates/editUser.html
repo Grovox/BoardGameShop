@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta charset="UTF-8">
+    <title> Corparation</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link rel="shortcut icon" th:href="@{../static/images/Landing.png}" type="image/x-icon">
+    <link media="all" rel="stylesheet" th:href="@{../static/css/main.css}" type="text/css"/>
+</head>
+<body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"
+        integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"
+        integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13"
+        crossorigin="anonymous"></script>
+<div class="wrapper">
+    <header class="p-2 bg-dark text-white">
+        <div class="container">
+            <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+                <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
+                    <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap">
+                        <use xlink:href="#bootstrap"></use>
+                    </svg>
+                </a>
+                <div class=" col-lg-auto me-lg-auto"></div>
+                <div class="navbar-brand">Admin</div>
+                <div class="text-end">
+                    <a href="/admin" class="btn btn-outline-light me-2">Назад</a>
+                </div>
+                <form th:action="@{/logout}" method="post">
+                    <input class="btn btn-warning" type="submit" value="Выход"/>
+                </form>
+            </div>
+        </div>
+    </header>
+    <main>
+        <div class="container mt-5">
+            <div class="row">
+                <div class="col-4">
+                    <form action="#" th:object="${user}" th:action="@{'/editUserSave' + ${user.id}}" method="post"
+                          class="row g-3 needs-validation"
+                          novalidate>
+                        <h2 class="text-center all-text pt-2 pb-2">Изменить данные пользователя</h2>
+                        <div>
+                            <h6 class="all-text pt-4 pb-2">Mail</h6>
+                            <input type="email" th:field="*{mail}" class="form-control input-style"
+                                   aria-describedby="emailHelp" placeholder="Mail" required>
+                        <div>
+                            <h6 class="all-text pt-4 pb-2">Имя</h6>
+                            <input type="text" th:field="*{name}" class="form-control input-style" placeholder="Имя"
+                                   required>
+                        </div>
+                        <div>
+                            <h6 class="all-text pt-4 pb-2">Фамилия</h6>
+                            <input type="text" th:field="*{surname}" class="form-control input-style" placeholder="Фамилия"
+                                   required>
+                        </div>
+                        <div>
+                            <h6 class="all-text pt-4 pb-2">Отчество</h6>
+                            <input type="text" th:field="*{patronymic}" class="form-control input-style" placeholder="Отчество"
+                                   required>
+                        </div>
+                        <div>
+                            <h6 class="all-text pt-4 pb-2">Номер телефона</h6>
+                            <input type="text" th:field="*{contact_number}" class="form-control input-style"
+                                   aria-describedby="emailHelp" placeholder="Номер телефона" required>
+                        </div>
+                        <div>
+                            <h6 class="all-text pt-4 pb-2">Область</h6>
+                            <input type="text" th:field="*{region}" class="form-control input-style" placeholder="Область"
+                                   required>
+                        </div>
+                        <div>
+                            <h6 class="all-text pt-4 pb-2">Город</h6>
+                            <input type="text" th:field="*{city}" class="form-control input-style" placeholder="Город"
+                                   required>
+                        </div>
+                        <div>
+                            <h6 class="all-text pt-4 pb-2">Адрес</h6>
+                            <input type="text" th:field="*{address}" class="form-control input-style" placeholder="Адрес"
+                                   required>
+                        </div>
+                        <div class="mb-4">
+                            <h6 class="all-text pt-4 pb-2">Выберете роль</h6>
+                            <select th:field="*{id}" class="form-select  input-style">
+                                <option selected disabled value="">Выберите пользователя...</option>
+                                <option th:each="role : ${roleList}"
+                                        th:value="${role.id}"
+                                        th:utext="${role.role}"/>
+                            </select>
+                        </div>
+                        <div class="pb-4 btn-group" aria-label="Basic checkbox toggle button group">
+                            <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
+                                <input th:checked="*{archive}" name="archive" type="checkbox" class="btn-check btn-outline-secondary" id="btncheck2">
+                                <label class="btn btn-outline-primary" for="btncheck2">Архивировать</label>
+                            </div>
+                        </div>
+                        <div class="mb-2 col">
+                            <button type="submit" class="btn btn-style">Сохранить
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <div class="container">
+            <nav class="navbar">
+                <ul class="nav">
+                    <li class="nav-item ps-5">
+                        <a class="nav-link text-white-50" href="mailto:Grovox@bk.ru">Grovox@bk.ru</a>
+                    </li>
+                    <li class="nav-item ps-5">
+                        <a class="nav-link text-white-50" href="https://github.com/Grovox/BoardGameShop.git">Github</a>
+                    </li>
+                    <li class="nav-item ps-5">
+                        <a class="nav-link text-white-50" href="tel:+79997006867">+79997006867</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </footer>
+</div>
+</body>
+</html>

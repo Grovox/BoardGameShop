@@ -31,17 +31,20 @@
                 </a>
 
                 <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-                    <li><a href="/" class="nav-link px-2 text-white">Главная</a></li>
+                    <li><a href="/index" class="nav-link px-2 text-white">Главная</a></li>
                     <li><a href="/ShippingPayment" class="nav-link px-2 text-white">Доставка и оплата</a></li>
                     <li><a href="/Guarantee" class="nav-link px-2 text-white">Гарантия</a></li>
                     <li><a href="/AboutUs" class="nav-link px-2 text-white">О нас</a></li>
                 </ul>
 
+                <p class="all-text ms-4 me-2" th:text="${name}"></p>
                 <div class="text-end">
-                    <a href="/login" class="btn btn-outline-light me-2">Login</a>
-                    <a href="/registration" class="btn btn-warning  me-4">Sign-up</a>
                     <a href="/basket" class="btn btn-outline-light text-bucket me-2">Корзина</a>
+                    <a href="/profile" class="btn btn-outline-light text-bucket me-2">Профиль</a>
                 </div>
+                <form th:action="@{/logout}" method="post">
+                    <input class="btn btn-warning" type="submit" value="Выход"/>
+                </form>
             </div>
         </div>
     </header>

@@ -1,14 +1,14 @@
 package GandA.Corporation.BoardGames.controller;
 
-import GandA.corporation.APK.model.Role;
-import GandA.corporation.APK.model.User;
-import GandA.corporation.APK.service.RoleService;
-import GandA.corporation.APK.service.UserService;
-import GandA.corporation.APK.vilidator.UserValidator;
+
+import GandA.Corporation.BoardGames.domain.Role;
+import GandA.Corporation.BoardGames.domain.User;
+import GandA.Corporation.BoardGames.service.RoleService;
+import GandA.Corporation.BoardGames.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,40 +26,53 @@ public class AdminController {
     @Autowired
     private UserService userService;
 
-    @Autowired
-    private UserValidator userValidator;
-
     @RequestMapping("/admin")
     public String viewHomePage(Model model) {
         List<User> listUser = userService.listAll();
         model.addAttribute("listUser", listUser);
+        String search = null;
+        model.addAttribute("mail", search);
+        return "admin";
+    }
+
+    @RequestMapping("/searchUser")
+    public String viewHomePage(Model model, @Param("keyword") String keyword) {
+        List<User> listUser = userService.findByMailContaining(keyword);
+        model.addAttribute("listUser", listUser);
+        model.addAttribute("keyword", keyword);
+
         return "admin";
     }
 
     @RequestMapping("/editUser/{id}")
     public ModelAndView showEditUser(@PathVariable(name = "id") Long id) {
-        ModelAndView mav = new ModelAndView("edit_user");
+        ModelAndView mav = new ModelAndView("editUser");
 
         User user = userService.get(id);
-        List<Role> rolelist = roleService.listAll();
+        List<Role> roleList = roleService.listAll();
         mav.addObject("user", user);
-        mav.addObject("rolelist", rolelist);
+        mav.addObject("roleList", roleList);
 
         return mav;
     }
 
     @RequestMapping(value = "/editUserSave{Userid}", method = RequestMethod.POST)
-    public String editUserSave(@ModelAttribute("user") User user,@PathVariable(name = "Userid") Long Userid,@ModelAttribute("id") Long Roleid) {
+    public String editUserSave(@ModelAttribute("user") User user, @PathVariable(name = "Userid") Long Userid, @ModelAttribute("id") Long Roleid) {
 
         User userSave = userService.get(Userid);
-        userSave.setEmail(user.getEmail());
-        userSave.setUsername(user.getUsername());
+        System.out.println(Userid);
+        System.out.println(user.getId());
+        userSave.setMail(user.getMail());
+        userSave.setName(user.getName());
         userSave.setSurname(user.getSurname());
         userSave.setPatronymic(user.getPatronymic());
-        userSave.setPhone(user.getPhone());
+        userSave.setContact_number(user.getContact_number());
         userSave.setRegion(user.getRegion());
-        userSave.setEnabled(user.isEnabled());
-        userSave.setRoleUser(roleService.get(Roleid));
+        userSave.setCity(user.getCity());
+        userSave.setAddress(user.getAddress());
+        userSave.setArchive(user.isArchive());
+        System.out.println(user.isArchive());
+        userSave.setRole(roleService.get(Roleid));
         userService.saveNotPassword(userSave);
 
         return "redirect:/admin";
@@ -71,19 +84,22 @@ public class AdminController {
         user.setId(id);
         model.addAttribute("user",user);
 
-        return "edit_UserPasword";
+        return "editUserPassword";
     }
 
     @RequestMapping(value = "/editUserPasswordSave{Userid}", method = RequestMethod.POST)
-    public String editUserPasswordSave(@ModelAttribute("user") User user, @PathVariable(name = "Userid") Long Userid, BindingResult bindingResult) {
-        userValidator.validate(user, bindingResult);
-        if (bindingResult.hasErrors()) {
-            return "error_password";
+    public String editUserPasswordSave(@ModelAttribute("user") User user, @PathVariable(name = "Userid") Long Userid, Model model) {
+        if (user.getPassword().length() < 8 || user.getPassword().length() > 32) {
+            return "redirect:/editUserPassword/"+Userid+"?errorPassword=true";
+        }
+
+        if (!user.getConfirmPassword().equals(user.getPassword())) {
+            return "redirect:/editUserPassword/"+Userid+"?errorPasswordConfirm=true";
         }
 
         User userSave = userService.get(Userid);
         userSave.setPassword(user.getPassword());
-        userService.save(userSave);
+        userService.savePassword(userSave);
 
         return "redirect:/admin";
     }

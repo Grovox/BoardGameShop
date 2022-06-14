@@ -29,39 +29,23 @@
                         <use xlink:href="#bootstrap"></use>
                     </svg>
                 </a>
-
-                <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-                    <li><a href="/" class="nav-link px-2 text-white">Главная</a></li>
-                    <li><a href="/ShippingPayment" class="nav-link px-2 text-white">Доставка и оплата</a></li>
-                    <li><a href="/Guarantee" class="nav-link px-2 text-white">Гарантия</a></li>
-                    <li><a href="/AboutUs" class="nav-link px-2 text-white">О нас</a></li>
-                </ul>
-
-                <div class="text-end">
-                    <a href="/login" class="btn btn-outline-light me-2">Login</a>
-                    <a href="/registration" class="btn btn-warning  me-4">Sign-up</a>
-                    <a href="/basket" class="btn btn-outline-light text-bucket me-2">Корзина</a>
-                </div>
+                <div class=" col-lg-auto me-lg-auto"></div>
+                <div class="navbar-brand">Manager</div>
+                <form th:action="@{/logout}" method="post">
+                    <input class="btn btn-warning" type="submit" value="Выход"/>
+                </form>
             </div>
         </div>
     </header>
     <main>
-        <div class="container">
-            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-                <div class="col">
-                    <div class="card shadow-sm">
-                        <img class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <p class="card-text"></p>
-                            <div class="d-flex justify-content-between align-items-center">
-                                <div class="btn-group">
-                                    <a class="btn btn-light"
-                                       href="https://nbpublish.com/library_read_article.php?id=36188 ">купить</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+        <div class="container mt-5">
+            <div class="row">
+                <div class="col mb-4"><a class="btn btn-style" href="">Посмотреть заказы</a></div>
+            </div>
+            <div class="row">
+                <div class="col-12"><a class="btn btn-style" href="">Посмотреть товары</a></div>
+            </div>
+        </div>
     </main>
     <footer>
         <div class="container">
@@ -81,24 +65,5 @@
         </div>
     </footer>
 </div>
-<script>
-    (function () {
-        'use strict'
-        // Получите все формы, к которым мы хотим применить пользовательские стили проверки Bootstrap
-        var forms = document.querySelectorAll('.needs-validation')
-
-        // Зацикливайтесь на них и предотвращайте отправку
-        Array.prototype.slice.call(forms)
-            .forEach(function (form) {
-                form.addEventListener('submit', function (event) {
-                    if (!form.checkValidity()) {
-                        event.preventDefault()
-                        event.stopPropagation()
-                    }
-                    form.classList.add('was-validated')
-                }, false)
-            })
-    })()
-</script>
 </body>
 </html>

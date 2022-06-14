@@ -58,48 +58,48 @@
                         </script>
                     </div>
                     <div class="table-responsive">
-                    <table class="table table-dark table-striped">
-                        <thead>
-                        <tr>
-                            <th scope="col">mail</th>
-                            <th scope="col">Фамилия</th>
-                            <th scope="col">Имя</th>
-                            <th scope="col">Отчество</th>
-                            <th scope="col">Номер</th>
-                            <th scope="col">Регион</th>
-                            <th scope="col">Город</th>
-                            <th scope="col">Адрес</th>
-                            <th scope="col">Роль</th>
-                            <th scope="col">Архив</th>
+                        <table class="table table-dark table-striped" style="width: 100%;">
+                            <thead>
+                            <tr>
+                                <th scope="col">mail</th>
+                                <th scope="col">Имя</th>
+                                <th scope="col">Фамилия</th>
+                                <th scope="col">Отчество</th>
+                                <th scope="col">Номер</th>
+                                <th scope="col">Регион</th>
+                                <th scope="col">Город</th>
+                                <th scope="col">Адрес</th>
+                                <th scope="col">Роль</th>
+                                <th scope="col">Архив</th>
 
-                            <th>Изменить</th>
-                            <th>Изменить пароль</th>
-                            <th>Удалить</th>
+                                <th>Изменить</th>
+                                <th>Изменить пароль</th>
+                                <th>Удалить</th>
 
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr class="table-active" th:each="user : ${listUser}">
-                            <td th:text="${user.mail}">Email</td>
-                            <td th:text="${user.surname}">Фамилия</td>
-                            <td th:text="${user.name}">Имя</td>
-                            <td th:text="${user.patronymic}">Отчество</td>
-                            <td th:text="${user.contact_number}">Номер</td>
-                            <td th:text="${user.region}">Регион</td>
-                            <td th:text="${user.city}">Город</td>
-                            <td th:text="${user.address}">Адрес</td>
-                            <td th:text="${user.getRole() ne null} ? ${user.getRole().getRole()} : 'У пользователя нет роли'">
-                                Роль
-                            </td>
-                            <td th:text="${user.isArchive()}">Архив</td>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr class="table-active" th:each="user : ${listUser}">
+                                <td th:text="${user.mail}">Email</td>
+                                <td th:text="${user.name}">Имя</td>
+                                <td th:text="${user.surname}">Фамилия</td>
+                                <td th:text="${user.patronymic}">Отчество</td>
+                                <td th:text="${user.contact_number}">Номер</td>
+                                <td th:text="${user.region}">Регион</td>
+                                <td th:text="${user.city}">Город</td>
+                                <td th:text="${user.address}">Адрес</td>
+                                <td th:text="${user.getRole() ne null} ? ${user.getRole().getRole()} : 'У пользователя нет роли'">
+                                    Роль
+                                </td>
+                                <td th:text="${user.isArchive()}">Архив</td>
 
-                            <td><a class="btn btn-warning" th:href="@{'/editUser/' + ${user.id}}">Изменить</a></td>
-                            <td><a class="btn btn-warning" th:href="@{'/editUserPassword/' + ${user.id}}">Изменить
-                                пароль</a></td>
-                            <td><a class="btn btn-danger" th:href="@{'/deleteUser/' + ${user.id}}">Удалить</a></td>
-                        </tr>
-                        </tbody>
-                    </table>
+                                <td><a class="btn btn-warning" th:href="@{'/editUser/' + ${user.id}}">Изменить</a></td>
+                                <td><a class="btn btn-warning" th:href="@{'/editUserPassword/' + ${user.id}}">Изменить
+                                    пароль</a></td>
+                                <td><a class="btn btn-danger" th:href="@{'/deleteUser/' + ${user.id}}">Удалить</a></td>
+                            </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>

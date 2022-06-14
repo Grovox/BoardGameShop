@@ -6,17 +6,20 @@ create sequence product_seq start 1 increment 1;
 create sequence review_seq start 1 increment 1;
 create sequence role_seq start 1 increment 1;
 create sequence user_seq start 1 increment 1;
+
 create table buckets
 (
     bucket_id int8 not null,
     user_id   int8,
     primary key (bucket_id)
 );
+
 create table buckets_products
 (
     bucket_id  int8 not null,
     product_id int8 not null
 );
+
 create table images
 (
     image_id           int8    not null,
@@ -29,6 +32,7 @@ create table images
     product_id         int8,
     primary key (image_id)
 );
+
 create table ordered_products
 (
     ordered_products_id int8 not null,
@@ -37,17 +41,27 @@ create table ordered_products
     product_id          int8,
     primary key (ordered_products_id)
 );
+
 create table orders
 (
-    order_id     int8    not null,
-    created      timestamp,
-    order_price  numeric(19, 2),
-    order_status varchar(255),
-    paid         boolean not null,
-    update       timestamp,
-    user_id      int8,
+    order_id       int8    not null,
+    address        varchar(255),
+    city           varchar(255),
+    contact_number varchar(255),
+    created        timestamp,
+    mail           varchar(255),
+    name           varchar(255),
+    order_price    numeric(19, 2),
+    order_status   varchar(255),
+    paid           boolean not null,
+    patronymic     varchar(255),
+    region         varchar(255),
+    surname        varchar(255),
+    update         timestamp,
+    user_id        int8,
     primary key (order_id)
 );
+
 create table products
 (
     product_id        int8 not null,
@@ -62,6 +76,7 @@ create table products
     weight            varchar(255),
     primary key (product_id)
 );
+
 create table reviews
 (
     review_id     int8 not null,
@@ -72,12 +87,14 @@ create table reviews
     user_id       int8,
     primary key (review_id)
 );
+
 create table roles
 (
     role_id int8 not null,
     role    varchar(255),
     primary key (role_id)
 );
+
 create table users
 (
     user_id          int8    not null,
@@ -95,6 +112,7 @@ create table users
     role_id          int8,
     primary key (user_id)
 );
+
 alter table if exists buckets add constraint buckets_fk_users foreign key (user_id) references users;
 alter table if exists buckets_products add constraint buckets_products_fk_products foreign key (product_id) references products;
 alter table if exists buckets_products add constraint buckets_products_fk_buckets foreign key (bucket_id) references buckets;
