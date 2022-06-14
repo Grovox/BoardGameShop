@@ -23,7 +23,7 @@ create table buckets_products
 create table images
 (
     image_id           int8    not null,
-    bytes              oid,
+    bytes              bytea,
     content_type       varchar(255),
     is_preview_images  boolean not null,
     name               varchar(255),
@@ -73,9 +73,11 @@ create table products
     price             numeric(19, 2),
     quantity_in_stock int4 not null,
     rules             varchar(4095),
-    weight            varchar(255),
+    short_description varchar(4095),
     primary key (product_id)
 );
+
+
 
 create table reviews
 (

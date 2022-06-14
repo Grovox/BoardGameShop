@@ -42,7 +42,7 @@
     </header>
     <main>
         <div class="container-fluid">
-            <h2 class="text-center all-text">Подробнее о продукте</h2>
+            <h2 class="text-center all-text">Подробнее о заказе</h2>
             <div class="container" th:object="${order}">
                 <p class="all-text" th:text="'Номер заказа: ' + *{id}"></p>
                 <p class="all-text" th:text="'Цена: ' + *{order_price}"></p>
@@ -58,58 +58,59 @@
                 <p class="all-text" th:text="'Город: ' + *{city}"></p>
                 <p class="all-text" th:text="'Адрес: ' + *{address}"></p>
             </div>
-            <div class="container-fled mt-5">
                 <div class="row">
                     <div class="table-responsive">
                         <table class="table table-dark table-striped">
                             <thead>
                             <tr>
                                 <th scope="col">Количество</th>
+                                <th>Сохранить</th>
+                                <th scope="col">Название</th>
+                                <th scope="col">Вес</th>
+                                <th scope="col">Количество на складе</th>
                                 <th scope="col">Цена</th>
-                                <th scope="col">Oплаченный</th>
-                                <th scope="col">Дата заказа</th>
-                                <th scope="col">Последнее обновление</th>
-                                <th scope="col">Фамилия</th>
-                                <th scope="col">Имя</th>
-                                <th scope="col">Отчество</th>
-                                <th scope="col">Номер</th>
-                                <th scope="col">Почта</th>
-                                <th scope="col">Регион</th>
-                                <th scope="col">Город</th>
-                                <th scope="col">Адрес</th>
+                                <th scope="col">Скидка</th>
 
-                                <th>Изменить</th>
-                                <th>Изменить пароль</th>
+
                                 <th>Удалить</th>
 
                             </tr>
                             </thead>
                             <tbody>
-                            <tr class="table-active" th:each="order : ${listOrder}">
-                                <td th:text="${order.id}">Номер заказа</td>
-                                <td th:text="${order.order_price}">Цена</td>
-                                <td th:text="${order.paid}">Oплаченный</td>
-                                <td th:text="${order.created}">Дата заказа</td>
-                                <td th:text="${order.update}">Последнее обновление</td>
-                                <td th:text="${order.surname}">Фамилия</td>
-                                <td th:text="${order.name}">Имя</td>
-                                <td th:text="${order.patronymic}">Отчество</td>
-                                <td th:text="${order.contact_number}">Номер</td>
-                                <td th:text="${order.mail}">Email</td>
-                                <td th:text="${order.region}">Регион</td>
-                                <td th:text="${order.city}">Город</td>
-                                <td th:text="${order.address}">Адрес</td>
+                            <tr class="table-active" th:each="orderedProduct : ${listOrderedProduct}">
+                                <form th:action="@{'/saveOrder/'+${orderedProduct.id}}">
+                                    <td><div class="input-group quantity_goods">
+                                        <input type="number" step="1" min="1" max="100" id="num_count" id="amount" name="amount" th:value="${orderedProduct.amount}">
+                                        <input type="button" value="-" id="button_minus">
+                                        <input type="button" value="+" id="button_plus">
+                                    </div></td>
+                                <td><input type="submit" value="Сохранить" class="btn btn-warning" /></td>
+                            </form>
+                                <td th:text="${orderedProduct.getProduct().getName()}">Название</td>
+                                <td th:text="${orderedProduct.getProduct().getWeight()}">Вес</td>
+                                <td th:text="${orderedProduct.getProduct().getQuantity_in_stock()}">Количество на складе</td>
+                                <td th:text="${orderedProduct.getProduct().getPrice()}">Цена</td>
+                                <td th:text="${orderedProduct.getProduct().getDiscount()}">Скидка</td>
 
-                                <td><a class="btn btn-warning" th:href="@{'/moreOrder/' + ${user.id}}">Подробнее</a></td>
-                                <td><a class="btn btn-warning" th:href="@{'/editOrder/' + ${user.id}}">Изменить</a></td>
-                                <td><a class="btn btn-danger" th:href="@{'/deleteOrder/' + ${user.id}}">Удалить</a></td>
+
+                                <td><a class="btn btn-danger" th:href="@{'/deleteOrder/' + ${orderedProduct.id}}">Удалить</a></td>
                             </tr>
                             </tbody>
                         </table>
                     </div>
                 </div>
+            <form th:action="@{'/searchOrder/'+${order.id}}">
+                <input type="text" name="amount" class="form-control input-style" id="amount" th:value="${amount}" required />
+                <select class="form-select" name="idProduct" id="idProduct" th:value="${idProduct}">
+                    <option selected disabled value="">Выберите пользователя...</option>
+                    <option th:each="product : ${listProduct}"
+                            th:value="${product.id}"
+                            th:utext="${product.name}"/>
+                </select>
+                <input type="submit" value="Добавить" class="btn btn-style" />
+
+            </form>
             </div>
-        </div>
     </main>
     <footer>
         <div class="container">
@@ -128,6 +129,21 @@
             </nav>
         </div>
     </footer>
+    <script>
+        var numCount = document.getElementById('num_count');
+        var plusBtn = document.getElementById('button_plus');
+        var minusBtn = document.getElementById('button_minus');
+        plusBtn.onclick = function() {
+            var qty = parseInt(numCount.value);
+            qty = qty + 1;
+            numCount.value = qty;
+        }
+        minusBtn.onclick = function() {
+            var qty = parseInt(numCount.value);
+            qty = qty - 1;
+            numCount.value = qty;
+        }
+    </script>
 </div>
 </body>
 </html>

@@ -27,21 +27,19 @@ public class AdminController {
     private UserService userService;
 
     @RequestMapping("/admin")
-    public String viewHomePage(Model model) {
+    public String viewAdminPage(Model model) {
         List<User> listUser = userService.listAll();
         model.addAttribute("listUser", listUser);
-        String search = null;
-        model.addAttribute("mail", search);
         return "admin";
     }
 
     @RequestMapping("/searchUser")
-    public String viewHomePage(Model model, @Param("keyword") String keyword) {
+    public String searchUser(Model model, @Param("keyword") String keyword) {
         List<User> listUser = userService.findByMailContaining(keyword);
         model.addAttribute("listUser", listUser);
         model.addAttribute("keyword", keyword);
 
-        return "admin";
+        return "redirect:/admin";
     }
 
     @RequestMapping("/editUser/{id}")
@@ -60,8 +58,6 @@ public class AdminController {
     public String editUserSave(@ModelAttribute("user") User user, @PathVariable(name = "Userid") Long Userid, @ModelAttribute("id") Long Roleid) {
 
         User userSave = userService.get(Userid);
-        System.out.println(Userid);
-        System.out.println(user.getId());
         userSave.setMail(user.getMail());
         userSave.setName(user.getName());
         userSave.setSurname(user.getSurname());
@@ -71,7 +67,6 @@ public class AdminController {
         userSave.setCity(user.getCity());
         userSave.setAddress(user.getAddress());
         userSave.setArchive(user.isArchive());
-        System.out.println(user.isArchive());
         userSave.setRole(roleService.get(Roleid));
         userService.saveNotPassword(userSave);
 

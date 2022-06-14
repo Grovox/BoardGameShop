@@ -46,12 +46,12 @@
                 <div class="col-12">
                     <h2 class="text-center all-text">Пользователи</h2>
                     <div class="col pt-3 pb-4">
-                        <form th:action="@{/searchUser}">
+                        <form th:action="@{/searchOrder}">
                             <div class="row"><div class="col-3"><input type="text" name="keyword" class="form-control input-style" id="keyword" th:value="${keyword}" required /></div>
                                 <div class="col-3">
-                                    <input type="submit" value="Search" class="btn btn-style" />
+                                    <input type="submit" value="Искать" class="btn btn-style" />
 
-                                    <input type="button" value="Clear" id="btnClear" class="btn btn-style" onclick="clearSearch()" />
+                                    <input type="button" value="Очистить" id="btnClear" class="btn btn-style" onclick="clearSearch()" />
                                 </div></div>
                         </form>
                         <script type="text/javascript">
@@ -60,6 +60,7 @@
                             }
                         </script>
                     </div>
+                    <h2 class="text-center all-text">Заказы</h2>
                     <div class="table-responsive">
                         <table class="table table-dark table-striped">
                             <thead>

@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.awt.*;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
@@ -38,11 +39,11 @@ public class Product{
 
     private String name;
 
+    private String short_description;
+
     private String description;
 
     private String rules;
-
-    private String weight;
 
     private String number_of_players;
 
@@ -51,6 +52,19 @@ public class Product{
     private BigDecimal price;
 
     private int discount;
+
+    public void addImageToProduct(Image image){
+        image.setProduct(this);
+        images.add(image);
+    }
+
+    public String getShort_description() {
+        return short_description;
+    }
+
+    public void setShort_description(String short_description) {
+        this.short_description = short_description;
+    }
 
     public Long getId() {
         return id;
@@ -114,14 +128,6 @@ public class Product{
 
     public void setRules(String rules) {
         this.rules = rules;
-    }
-
-    public String getWeight() {
-        return weight;
-    }
-
-    public void setWeight(String weight) {
-        this.weight = weight;
     }
 
     public String getNumber_of_players() {

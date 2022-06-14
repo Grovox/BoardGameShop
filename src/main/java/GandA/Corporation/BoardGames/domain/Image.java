@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 
@@ -30,8 +31,8 @@ public class Image {
     private String original_file_name;
     private Long size;
     private String content_type;
-    private boolean is_preview_images;
-    @Lob
+    private boolean is_preview_images;@Lob
+    @Type(type = "org.hibernate.type.ImageType")
     private byte[] bytes;
 
     public Long getId() {
