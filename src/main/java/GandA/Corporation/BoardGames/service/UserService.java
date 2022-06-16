@@ -9,9 +9,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.HashSet;
+
 import java.util.List;
-import java.util.Set;
 
 @Service
 public class UserService{
@@ -27,6 +26,7 @@ public class UserService{
 
     public void savePassword(User user) {
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+
         repo.save(user);
     }
 

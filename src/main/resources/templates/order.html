@@ -47,7 +47,7 @@
                     <h2 class="text-center all-text">Пользователи</h2>
                     <div class="col pt-3 pb-4">
                         <form th:action="@{/searchOrder}">
-                            <div class="row"><div class="col-3"><input type="text" name="keyword" class="form-control input-style" id="keyword" th:value="${keyword}" required /></div>
+                            <div class="row"><div class="col-3"><input type="text" name="keyword" class="form-control input-style" id="keyword" th:value="${key}" required /></div>
                                 <div class="col-3">
                                     <input type="submit" value="Искать" class="btn btn-style" />
 
@@ -101,9 +101,9 @@
                                 <td th:text="${order.city}">Город</td>
                                 <td th:text="${order.address}">Адрес</td>
 
-                                <td><a class="btn btn-warning" th:href="@{'/moreOrder/' + ${user.id}}">Подробнее</a></td>
-                                <td><a class="btn btn-warning" th:href="@{'/editOrder/' + ${user.id}}">Изменить</a></td>
-                                <td><a class="btn btn-danger" th:href="@{'/deleteOrder/' + ${user.id}}">Удалить</a></td>
+                                <td><a class="btn btn-warning" th:href="@{'/moreOrder/' + ${order.id}}">Подробнее</a></td>
+                                <td><a class="btn btn-warning" th:href="@{'/editOrder/' + ${order.id}}">Изменить</a></td>
+                                <td><a class="btn btn-danger" th:href="@{'/deleteOrder/' + ${order.id}}">Удалить</a></td>
                             </tr>
                             </tbody>
                         </table>

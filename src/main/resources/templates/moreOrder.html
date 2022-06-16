@@ -78,7 +78,7 @@
                             </thead>
                             <tbody>
                             <tr class="table-active" th:each="orderedProduct : ${listOrderedProduct}">
-                                <form th:action="@{'/saveOrder/'+${orderedProduct.id}}">
+                                <form th:action="@{'/saveOrderProduct/'+${orderedProduct.id}}">
                                     <td><div class="input-group quantity_goods">
                                         <input type="number" step="1" min="1" max="100" id="num_count" id="amount" name="amount" th:value="${orderedProduct.amount}">
                                         <input type="button" value="-" id="button_minus">
@@ -99,10 +99,10 @@
                         </table>
                     </div>
                 </div>
-            <form th:action="@{'/searchOrder/'+${order.id}}">
+            <form th:action="@{'/addOrderProduct/'+${order.id}}">
                 <input type="text" name="amount" class="form-control input-style" id="amount" th:value="${amount}" required />
                 <select class="form-select" name="idProduct" id="idProduct" th:value="${idProduct}">
-                    <option selected disabled value="">Выберите пользователя...</option>
+                    <option selected disabled value="">Выберите продукт...</option>
                     <option th:each="product : ${listProduct}"
                             th:value="${product.id}"
                             th:utext="${product.name}"/>

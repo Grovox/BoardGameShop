@@ -44,49 +44,10 @@
         <div class="container mt-5">
             <div class="row">
                 <div class="col-4">
-                    <form action="#" th:object="${product}" th:action="@{'/productSave'}" method="post"
+                    <form action="#" th:object="${product}" th:action="@{'/editPhotoProductSave'+${product.id}}" method="post"
                           class="row g-3 needs-validation" enctype="multipart/form-data"
                           novalidate>
-                        <h2 class="text-center all-text pt-2 pb-2">Добавить Товар</h2>
-                        <div>
-                            <h6 class="all-text pt-4 pb-2">Название</h6>
-                            <input type="text" th:field="*{name}" class="form-control input-style"
-                                   aria-describedby="emailHelp" placeholder="Название" required>
-                            <div>
-                                <h6 class="all-text pt-4 pb-2">Описание</h6>
-                                <textarea name="description" id="description" th:typeof="description" th:field="*{description}" class="form-control input-style" placeholder="Описание"
-                                          required></textarea>
-                            </div>
-                            <div>
-                                <h6 class="all-text pt-4 pb-2">Краткое описание</h6>
-                                <textarea name="short_description" id="short_description" th:field="*{short_description}" class="form-control input-style" placeholder="Краткое описание"
-                                          required></textarea>
-                            </div>
-                            <div>
-                                <h6 class="all-text pt-4 pb-2">Правила</h6>
-                                <textarea name="rules" id="rules" th:field="*{rules}" class="form-control input-style" placeholder="Правила"
-                                          required></textarea>
-                            </div>
-                            <div>
-                                <h6 class="all-text pt-4 pb-2">Количество игроков</h6>
-                                <input type="text" th:field="*{number_of_players}" class="form-control input-style"
-                                       aria-describedby="emailHelp" placeholder="Количество игроков" required>
-                            </div>
-                            <div>
-                                <h6 class="all-text pt-4 pb-2">Количество на складе</h6>
-                                <input type="number" th:field="*{quantity_in_stock}" class="form-control input-style" placeholder="Количество на складе"
-                                       required>
-                            </div>
-                            <div>
-                                <h6 class="all-text pt-4 pb-2">Цена</h6>
-                                <input type="number" th:field="*{price}" class="form-control input-style" placeholder="Цена"
-                                       required>
-                            </div>
-                            <div>
-                                <h6 class="all-text pt-4 pb-2">Скидка</h6>
-                                <input type="number" th:field="*{discount}" class="form-control input-style" placeholder="Скидка"
-                                       required>
-                            </div>
+                        <h2 class="all-text">Изменить фото</h2>
                             <div>
                                 <h6 class="all-text pt-4 pb-2">Первая фотография</h6>
                                 <input type="file" name="filePhoto1" class="form-control input-style" placeholder="Фото"

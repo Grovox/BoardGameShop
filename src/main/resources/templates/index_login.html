@@ -49,22 +49,24 @@
         </div>
     </header>
     <main>
-        <div class="container">
-            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-                <div class="col">
-                    <div class="card shadow-sm">
-                        <img class="card-img-top" alt="...">
+        <div class="container mt-5">
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3" th:each="product : ${productList}">
+                <div class="col pt-3">
+                    <div>
+                        <img class="card-img-top img-cart" th:src="'/images/'+${product.preview_image_id}" alt="...">
                         <div class="card-body">
-                            <p class="card-text"></p>
+                            <p class="card-text all-text" th:text="${product.short_description}"></p>
                             <div class="d-flex justify-content-between align-items-center">
                                 <div class="btn-group">
                                     <a class="btn btn-light"
-                                       href="https://nbpublish.com/library_read_article.php?id=36188 ">купить</a>
+                                       href="'/productPage'+${product.id}">купить</a>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
     </main>
     <footer>
         <div class="container">

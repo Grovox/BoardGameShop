@@ -2,12 +2,14 @@ package GandA.Corporation.BoardGames.service;
 
 import GandA.Corporation.BoardGames.domain.Image;
 import GandA.Corporation.BoardGames.domain.Product;
+import GandA.Corporation.BoardGames.repo.ImageRepository;
 import GandA.Corporation.BoardGames.repo.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.Iterator;
 import java.util.List;
 
 @Service
@@ -15,8 +17,15 @@ public class ProductService {
     @Autowired
     private ProductRepository repo;
 
+    @Autowired
+    private ImageRepository imageRepository;
+
     public List<Product> listAll() {
         return repo.findAll();
+    }
+
+    public void saveNotPhoto(Product product){
+        repo.save(product);
     }
 
     public void save(Product product, MultipartFile file1, MultipartFile file2, MultipartFile file3, MultipartFile file4) throws IOException {
@@ -67,5 +76,9 @@ public class ProductService {
 
     public void delete(Long id) {
         repo.deleteById(id);
+    }
+
+    public List<Product> findByNameContaining(String name) {
+        return repo.findByNameContainingIgnoreCase(name);
     }
 }

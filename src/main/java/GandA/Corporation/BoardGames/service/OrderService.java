@@ -27,4 +27,8 @@ public class OrderService {
     public void delete(Long id) {
         repo.deleteById(id);
     }
+
+    public List<Order> findByIdContaining(Long id) {
+        return repo.findByIdContaining(id);
+    }
 }

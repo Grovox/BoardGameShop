@@ -46,7 +46,7 @@
                 <div class="col-12">
                     <h2 class="text-center all-text">Товары</h2>
                     <div class="col pt-3 pb-4">
-                        <form th:action="@{/searchUser}">
+                        <form th:action="@{/searchProduct}">
                             <div class="row"><div class="col-3"><input type="text" name="keyword" class="form-control input-style" id="keyword" th:value="${keyword}" required /></div>
                                 <div class="col-3">
                                     <input type="submit" value="Search" class="btn btn-style" />
@@ -68,7 +68,6 @@
                                 <th scope="col">Описание</th>
                                 <th scope="col">Краткое описание</th>
                                 <th scope="col">Правила</th>
-                                <th scope="col">Вес</th>
                                 <th scope="col">Количество игроков</th>
                                 <th scope="col">Количество на складе</th>
                                 <th scope="col">Цена</th>
@@ -78,6 +77,7 @@
                                 <th scope="col">1 фото</th>
                                 <th scope="col">2 фото</th>
                                 <th scope="col">3 фото</th>
+                                <th scope="col">Изменить фото</th>
 
                                 <th>Изменить</th>
                                 <th>Удалить</th>
@@ -87,18 +87,16 @@
                             <tbody>
                             <tr class="table-active" th:each="product : ${listProduct}">
                                 <td th:text="${product.name}">Название</td>
-                                <td><a class="btn btn-warning" th:href="@{'/editProduct/' + ${product.id}}">Изменить</a></td>
-                                <td><a class="btn btn-warning" th:href="@{'/editProduct/' + ${product.id}}">Изменить</a></td>
-                                <td><a class="btn btn-warning" th:href="@{'/editProduct/' + ${product.id}}">Изменить</a></td>
-                                <!--<td th:text="${product.description != 0}">Описание</td>
-                                <td th:text="${product.short_description != 0}">Краткое описание</td>
-                                <td th:text="${product.rules != 0}">Правила</td>-->
+                                <td><a class="btn btn-warning" th:href="@{'/descriptionProduct/' + ${product.id}}">Посмотреть описание</a></td>
+                                <td><a class="btn btn-warning" th:href="@{'/shortDescriptionProduct/' + ${product.id}}">Посмотреть краткое описание</a></td>
+                                <td><a class="btn btn-warning" th:href="@{'/rulesProduct/' + ${product.id}}">Посмотреть правила</a></td>
                                 <td th:text="${product.number_of_players}">Количество игроков</td>
                                 <td th:text="${product.quantity_in_stock}">Количество на складе</td>
                                 <td th:text="${product.price}">Цена</td>
                                 <td th:text="${product.discount}">Скидка</td>
 
                                 <td th:each="img : ${product.getImages()}"><img th:src="'/images/'+${img.getId()}" height="60" alt=""></td>
+                                <td><a class="btn btn-warning" th:href="@{'/editPhotoProduct/' + ${product.id}}">Изменить фото</a></td>
 
                                 <td><a class="btn btn-warning" th:href="@{'/editProduct/' + ${product.id}}">Изменить</a></td>
                                 <td><a class="btn btn-danger" th:href="@{'/deleteProduct/' + ${product.id}}">Удалить</a></td>

@@ -44,56 +44,50 @@
         <div class="container mt-5">
             <div class="row">
                 <div class="col-4">
-                    <form action="#" th:object="${order}" th:action="@{'/editUserSave' + ${order.id}}" method="post"
-                          class="row g-3 needs-validation"
+                    <form action="#" th:object="${product}" th:action="@{'/editProductSave'+${product.id}}" method="post"
+                          class="row g-3 needs-validation" enctype="multipart/form-data"
                           novalidate>
-                        <h2 class="text-center all-text pt-2 pb-2">Изменить Параметры заказа</h2>
+                        <h2 class="text-center all-text pt-2 pb-2">Изменить Товар</h2>
                         <div>
-                            <h6 class="all-text pt-4 pb-2">Оплачен</h6>
-                            <input type="email" th:field="*{mail}" class="form-control input-style"
-                                   aria-describedby="emailHelp" placeholder="Mail" required>
+                            <h6 class="all-text pt-4 pb-2">Название</h6>
+                            <input type="text" th:field="*{name}" class="form-control input-style"
+                                   aria-describedby="emailHelp" placeholder="Название" required>
                             <div>
-                                <h6 class="all-text pt-4 pb-2">Фамилия</h6>
-                                <input type="text" th:field="*{surname}" class="form-control input-style" placeholder="Фамилия"
+                                <h6 class="all-text pt-4 pb-2">Описание</h6>
+                                <textarea name="description" id="description" th:typeof="description" th:field="*{description}" class="form-control input-style" placeholder="Описание"
+                                          required></textarea>
+                            </div>
+                            <div>
+                                <h6 class="all-text pt-4 pb-2">Краткое описание</h6>
+                                <textarea name="short_description" id="short_description" th:field="*{short_description}" class="form-control input-style" placeholder="Краткое описание"
+                                          required></textarea>
+                            </div>
+                            <div>
+                                <h6 class="all-text pt-4 pb-2">Правила</h6>
+                                <textarea name="rules" id="rules" th:field="*{rules}" class="form-control input-style" placeholder="Правила"
+                                          required></textarea>
+                            </div>
+                            <div>
+                                <h6 class="all-text pt-4 pb-2">Количество игроков</h6>
+                                <input type="text" th:field="*{number_of_players}" class="form-control input-style"
+                                       aria-describedby="emailHelp" placeholder="Количество игроков" required>
+                            </div>
+                            <div>
+                                <h6 class="all-text pt-4 pb-2">Количество на складе</h6>
+                                <input type="number" th:field="*{quantity_in_stock}" class="form-control input-style" placeholder="Количество на складе"
                                        required>
                             </div>
                             <div>
-                                <h6 class="all-text pt-4 pb-2">Имя</h6>
-                                <input type="text" th:field="*{name}" class="form-control input-style" placeholder="Имя"
+                                <h6 class="all-text pt-4 pb-2">Цена</h6>
+                                <input type="number" th:field="*{price}" class="form-control input-style" placeholder="Цена"
                                        required>
                             </div>
                             <div>
-                                <h6 class="all-text pt-4 pb-2">Отчество</h6>
-                                <input type="text" th:field="*{patronymic}" class="form-control input-style" placeholder="Отчество"
+                                <h6 class="all-text pt-4 pb-2">Скидка</h6>
+                                <input type="number" th:field="*{discount}" class="form-control input-style" placeholder="Скидка"
                                        required>
                             </div>
-                            <div>
-                                <h6 class="all-text pt-4 pb-2">Номер телефона</h6>
-                                <input type="text" th:field="*{contact_number}" class="form-control input-style"
-                                       aria-describedby="emailHelp" placeholder="Номер телефона" required>
-                            </div>
-                            <div>
-                                <h6 class="all-text pt-4 pb-2">Область</h6>
-                                <input type="text" th:field="*{region}" class="form-control input-style" placeholder="Область"
-                                       required>
-                            </div>
-                            <div>
-                                <h6 class="all-text pt-4 pb-2">Город</h6>
-                                <input type="text" th:field="*{city}" class="form-control input-style" placeholder="Город"
-                                       required>
-                            </div>
-                            <div>
-                                <h6 class="all-text pt-4 pb-2">Адрес</h6>
-                                <input type="text" th:field="*{address}" class="form-control input-style" placeholder="Адрес"
-                                       required>
-                            </div>
-                            <div class="pb-4 btn-group" aria-label="Basic checkbox toggle button group">
-                                <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
-                                    <input th:checked="*{paid}" name="paid" type="checkbox" class="btn-check btn-outline-secondary" id="btncheck2">
-                                    <label class="btn btn-outline-primary" for="btncheck2">Оплачен</label>
-                                </div>
-                            </div>
-                            <div class="mb-2 col">
+                            <div class="pt-4 col">
                                 <button type="submit" class="btn btn-style">Сохранить
                                 </button>
                             </div>
@@ -120,6 +114,25 @@
             </nav>
         </div>
     </footer>
+    <script>
+        (function () {
+            'use strict'
+            // Получите все формы, к которым мы хотим применить пользовательские стили проверки Bootstrap
+            var forms = document.querySelectorAll('.needs-validation')
+
+            // Зацикливайтесь на них и предотвращайте отправку
+            Array.prototype.slice.call(forms)
+                .forEach(function (form) {
+                    form.addEventListener('submit', function (event) {
+                        if (!form.checkValidity()) {
+                            event.preventDefault()
+                            event.stopPropagation()
+                        }
+                        form.classList.add('was-validated')
+                    }, false)
+                })
+        })()
+    </script>
 </div>
 </body>
 </html>

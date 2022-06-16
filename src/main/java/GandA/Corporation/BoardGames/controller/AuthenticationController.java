@@ -20,19 +20,6 @@ public class AuthenticationController {
     @Autowired
     private SecurityService securityService;
 
-    @GetMapping("/")
-    public String viewHomePage(Model model) {
-        return "index";
-    }
-
-    @GetMapping("/index")
-    public String viewHomePageLogin(Model model) {
-
-        String name = userService.getAuntUser().getName();
-        model.addAttribute("name",name);
-        return "index_login";
-    }
-
     @RequestMapping(value = "/registration", method = RequestMethod.GET)
     public String registration(Model model) {
         User user = new User();
